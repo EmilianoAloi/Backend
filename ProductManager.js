@@ -78,15 +78,41 @@ class ProductManager {
         await fs.promises.writeFile(this.path, JSON.stringify(newProducts));
     }
 
-    async updateProduct(productId, productData) {
-        const products = await this.getProducts();
-        const productById = products.find((product) => product.id === productId);
-        // modificar data
+
+    async saveProducts(products) {
+        try {
+            await fs.promises.writeFile(this.path, JSON.stringify(products, null, 2));
+        } catch (error) {
+            console.error('Error al guardar productos:', error);
+        }
     }
 
 
+    async updateProduct(productId, updateDataProduct) {
+
+
+
+
+        try {
+            const products = await this.getProducts();
+            const index = products.findIndex((product) => product.id === productId);
+
+            if (index !== -1) {
+                products[index] = { ...updateDataProduct, id: productId };
+                await this.saveProducts(products);
+                console.log('Producto actualizado con éxito.');
+            } else {
+                console.error('Producto no encontrado.');
+            }
+        } catch (error) {
+            console.error('Error al actualizar producto:', error);
+        }
+    }
+
 
 }
+
+
 
 
 
@@ -111,7 +137,22 @@ const test2 = async () => {
 const test3 = async () => {
     const productManager = new ProductManager();
     await productManager.deleteProduct(3)
+
+
+}
+
+const test4 = async () => {
+    const productManager = new ProductManager();
+
+    await productManager.updateProduct(2, {
+        title: 'iPhone 12',
+        description: 'Nuevo modelo de iPhone',
+        price: 699,
+        thumbnail: 'img-iphone-12.jpg',
+        code: 42,
+        stock: 30,
+    });
 }
 
 
-test();
+test4();
