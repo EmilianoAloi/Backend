@@ -1,4 +1,4 @@
-const fs = require('fs');
+import fs from 'fs';
 
 export class ProductManager {
     constructor() {
@@ -90,9 +90,6 @@ export class ProductManager {
 
     async updateProduct(productId, updateDataProduct) {
 
-
-
-
         try {
             const products = await this.getProducts();
             const index = products.findIndex((product) => product.id === productId);
@@ -111,6 +108,7 @@ export class ProductManager {
 
 
 }
+
 
 
 
@@ -155,4 +153,4 @@ const test4 = async () => {
 }
 
 
-test4();
+// test4();
