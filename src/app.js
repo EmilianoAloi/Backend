@@ -16,40 +16,34 @@ app.listen(PORT, async () => {
 });
 
 
-
-
 app.get("/", (req, res) => {
-    res.send("Hola cliente")
+    res.send("Hola cliente");
 });
 
+
+// Ruta para obtener todos los productos o productos filtrado por marca via query
 
 app.get("/products", async (req, res) => {
-    const products = await productManager.getProducts()
-   
-    res.send(products);
+    const limit = req.query.limit;
+    const products = await productManager.getProducts();
+    console.log("Todos los productos:", products);
 
+    if (limit) {
+        const limitMarca = products.filter(p => p.title.toLowerCase() === limit.toLowerCase());
+        console.log("Productos filtrados:", limitMarca);
+        res.send(limitMarca);
+    } else res.send(products);
 });
 
 
 
+app.get("/products/:pid", async (req, res) => {
+    const idProduct = parseInt(req.params.pid)
+    const products = await productManager.getProducts();
+    const product = products.find(p => p.id === idProduct);
+    res.send(product);
 
-// app.get("/products", async (req, res) => {
-
-//     try {
-
-
-//     }
-
-
-
-
-// });
-
-
-
-
-app.get("/products/:pid", (req, res) => {
-    req.params
+    
 });
 
 
