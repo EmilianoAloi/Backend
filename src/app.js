@@ -37,12 +37,15 @@ app.get("/products", async (req, res) => {
 
 
 
+// Ruta para obtener product por id usando params
+
 app.get("/products/:pid", async (req, res) => {
-    const idProduct = parseInt(req.params.pid)
+    const idProduct = parseInt(req.params.pid);
     const products = await productManager.getProducts();
     const product = products.find(p => p.id === idProduct);
-    res.send(product);
 
+    if (product) res.status(200).json(product);
+    else res.status(404).json({ message: "Producto no encontrado"});
     
 });
 
