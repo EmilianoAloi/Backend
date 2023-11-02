@@ -2,7 +2,7 @@ import fs from 'fs';
 
 export class ProductManager {
     constructor() {
-        this.path = './products.json';
+        this.path = './src/data/products.json';
     }
 
 
@@ -23,19 +23,19 @@ export class ProductManager {
 
     async addProduct(title, description, price, thumbnail, code, stock) {
 
-        if (!title || !description || !price || !thumbnail || !code || !stock) {
-            return console.log("Error al cargar producto: Falta informacion");
-        };
+
 
         try {
 
-            const products = await this.getProducts();
+            if (!title || !description || !price || !thumbnail || !code || !stock) {
+                return console.log("Error al cargar producto: Falta informacion");
+            };
 
+            const products = await this.getProducts();
             let maxId = 0;
             products.map((product) => {
                 if (product.id > maxId) maxId = product.id;
             })
-
 
             if (products.some((product) => product.code == code)) {
                 return console.log("El Codigo ya esta siendo utilizado, ya debe haber un producto con el mismo codigo");
@@ -54,7 +54,7 @@ export class ProductManager {
             products.push(product);
 
             await fs.promises.writeFile(this.path, JSON.stringify(products));
-            return console.log("Producto agreado con exito!");
+            return product;
         } catch (error) {
             console.log(error);
         }
@@ -103,11 +103,9 @@ export class ProductManager {
             }
         } catch (error) {
             console.error('Error al actualizar producto:', error);
-        }
-    }
-
-
-}
+        };
+    };
+};
 
 
 
@@ -152,5 +150,15 @@ const test4 = async () => {
     });
 }
 
+const test5 = async () => {
+    try {
+        const productManager = new ProductManager();
+        const product = await productManager.getProductById(1);
+        console.log(product);
+    } catch (error) {
+        console.error(error);
+    }
+};
 
-// test4();
+
+// test2();
