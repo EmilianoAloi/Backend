@@ -7,12 +7,10 @@ export class ProductManager {
 
 
     async getProducts() {
-
         try {
             if (fs.existsSync(this.path)) {
                 const productsJSON = await fs.promises.readFile(this.path, "utf-8");
                 const productsJS = JSON.parse(productsJSON);
-                // console.log(productsJS);
                 return productsJS;
             } else return [];
         } catch (error) {
@@ -22,8 +20,6 @@ export class ProductManager {
 
 
     async addProduct(title, description, price, thumbnail, code, stock) {
-
-
 
         try {
 
@@ -65,7 +61,6 @@ export class ProductManager {
     async getProductById(productId) {
         const products = await this.getProducts();
         const productById = products.find((product) => product.id === productId);
-        console.log(productById);
         return productById;
     }
 
@@ -74,8 +69,8 @@ export class ProductManager {
         const products = await this.getProducts();
         const productById = products.find((product) => product.id === productId);
         const newProducts = products.filter((product) => product !== productById);
-        console.log(newProducts);
         await fs.promises.writeFile(this.path, JSON.stringify(newProducts));
+        return productById
     }
 
 
@@ -93,14 +88,15 @@ export class ProductManager {
         try {
             const products = await this.getProducts();
             const index = products.findIndex((product) => product.id === productId);
-
             if (index !== -1) {
-                products[index] = { ...updateDataProduct, id: productId };
+                const updatedProduct = { ...products[index], ...updateDataProduct, };
+                products[index] = updatedProduct;
                 await this.saveProducts(products);
                 console.log('Producto actualizado con éxito.');
-            } else {
-                console.error('Producto no encontrado.');
-            }
+                return updatedProduct
+
+            } else console.error('Producto no encontrado.');
+
         } catch (error) {
             console.error('Error al actualizar producto:', error);
         };
