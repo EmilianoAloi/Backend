@@ -1,0 +1,65 @@
+[
+  {
+    "id": 1,
+    "title": "Motorola",
+    "description": "telefono",
+    "price": 1000,
+    "thumbnail": "img",
+    "code": 389,
+    "stock": 500
+  },
+  {
+    "id": 2,
+    "title": "iPhone",
+    "description": "7 Plus",
+    "price": 1000,
+    "thumbnail": "img",
+    "code": 389,
+    "stock": 500
+  },
+  {
+    "id": 3,
+    "title": "samsung",
+    "description": "telefono",
+    "price": 1000,
+    "thumbnail": "img",
+    "code": 585,
+    "stock": 100
+  },
+  {
+    "id": 4,
+    "title": "iPhone",
+    "description": "telefono",
+    "price": 588,
+    "thumbnail": "img",
+    "code": 41,
+    "stock": 55
+  },
+  {
+    "id": 6,
+    "title": "LG",
+    "description": "telefono",
+    "price": 1000,
+    "thumbnail": "img",
+    "code": 589,
+    "stock": 500
+  },
+  {
+    "id": 7,
+    "title": "Apple",
+    "description": "iPhone X",
+    "price": "1000",
+    "thumbnail": "x.jpg",
+    "code": "9999",
+    "stock": "100"
+  },
+  {
+    "id": 8,
+    "title": "Apple",
+    "description": "iPhone XS",
+    "price": "1100",
+    "thumbnail": "xs.jpg",
+    "code": "7999",
+    "stock": "100"
+  }
+]

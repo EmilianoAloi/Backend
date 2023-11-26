@@ -1,8 +1,8 @@
 import fs from 'fs';
 
 export class CartManager {
-    constructor() {
-        this.path = './src/data/carts.json';
+    constructor(path) {
+        this.path = path;
     }
 
 
@@ -15,7 +15,6 @@ export class CartManager {
             } else return [];
         } catch (error) {
             console.log(error);
-
         }
     }
 
@@ -25,7 +24,7 @@ export class CartManager {
             const carts = await this.getCarts();
 
             const newCart = {
-                id: carts.length + 1,
+                id: carts.length + 10,
                 products: products
             }
 
@@ -60,6 +59,32 @@ export class CartManager {
 
     }
 
+    async addProductInCart(idCart, idProd) {
+        try {
+
+            const carts = await this.cartManager.getCarts();
+            const cartExist = await this.getCartsById(idCart);
+            if (cartExist) {
+                const existProdInCart = cartExist.products.find(p => p.id === idProd);
+                if (existProdInCart) existProdInCart.quantity + 1
+                else {
+                    const product = {
+                        product: idProd,
+                        quantity: 1
+                    };
+                    cartExist.products.push(product);
+                }
+            }
+
+            await fs.promises.writeFile(this.path, JSON.stringify(carts));
+
+            res.status(200).json(carts);
+
+            return cartExist
+        } catch (error) {
+
+        }
+    }
 
 
 

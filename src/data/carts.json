@@ -1,0 +1,36 @@
+[
+    {
+        "id": 1,
+        "products": [
+            {
+                "id": 1,
+                "title": "Motorola",
+                "description": "telefono",
+                "price": 1000,
+                "thumbnail": "img",
+                "code": 389,
+                "stock": 500
+            },
+            {
+                "id": 2,
+                "title": "iPhone",
+                "description": "7 Plus",
+                "price": 1000,
+                "thumbnail": "img",
+                "code": 389,
+                "stock": 500
+            }
+        ]
+    },
+    {
+        "id": 2,
+        "products": {
+            "title": "SAMSUNG",
+            "description": "S19",
+            "price": "1100",
+            "thumbnail": "S19.jpg",
+            "code": "5029",
+            "stock": "100"
+        }
+    }
+]
